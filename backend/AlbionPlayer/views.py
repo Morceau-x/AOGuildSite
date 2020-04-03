@@ -36,4 +36,4 @@ def remove_players(request: HttpRequest) -> HttpResponse:
 
     player = AlbionPlayer.objects.get(player_id=data.id, user=request.user)
     player.delete()
-    return return_players_helper(request)
+    return return_players_helper(request, ignore=player)
