@@ -33,7 +33,7 @@ def add_players(request: HttpRequest) -> HttpResponse:
     player = AlbionPlayer(player_id=data.id, name=data.name, user=request.user)
     try:
         player.save()
-    except IntegrityError:
+    except:
         pass
     albion_players_list: List[AlbionPlayer] = list(AlbionPlayer.objects.filter(user=request.user))
     players = [{"player_id": player.player_id} for player in albion_players_list]
