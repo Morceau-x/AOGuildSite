@@ -17,13 +17,11 @@ def get_players(request: HttpRequest) -> HttpResponse:
 @require_POST
 def add_players(request: HttpRequest) -> HttpResponse:
     data = check_player_post_helper(request)
-    if data is None:
-        return error_response("Unprocessable Entity", "The player could not be added", 422)
-
-    exists = AlbionPlayer.objects.filter(user=request.user, player_id=data.id).exists()
-    player = AlbionPlayer(player_id=data.id, name=data.name, user=request.user)
-    if not exists:
-        player.save()
+    if data is not None:
+        exists = AlbionPlayer.objects.filter(user=request.user, player_id=data.id).exists()
+        player = AlbionPlayer(player_id=data.id, name=data.name, user=request.user)
+        if not exists:
+            player.save()
     return return_players_helper(request)
 
 
@@ -31,9 +29,9 @@ def add_players(request: HttpRequest) -> HttpResponse:
 @require_POST
 def remove_players(request: HttpRequest) -> HttpResponse:
     data = check_player_post_helper(request)
-    if data is None:
-        return error_response("Unprocessable Entity", "The player could not be added", 422)
-
-    player = AlbionPlayer.objects.get(player_id=data.id, user=request.user)
-    player.delete()
+    player = None
+    if data is not None:
+        player = AlbionPlayer.objects.get(player_id=data.id, user=request.user)
+        if player is not None:
+            player.delete()
     return return_players_helper(request, ignore=player)
