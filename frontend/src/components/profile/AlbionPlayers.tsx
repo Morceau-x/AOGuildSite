@@ -96,10 +96,10 @@ export default function PlayersManager() {
             editable={{
                 isEditable: () => false,
                 onRowAdd: async (newData) => {
-                    dispatch(remoteAddAlbionPlayerAction(newData.id));
+                    dispatch(remoteAddAlbionPlayerAction(newData.name));
                 },
                 onRowDelete: async (oldData) => {
-                    dispatch(remoteRemoveAlbionPlayerAction(oldData.id));
+                    dispatch(remoteRemoveAlbionPlayerAction(oldData.name));
                 },
             }}
         />
