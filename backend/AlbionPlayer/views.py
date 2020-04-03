@@ -1,10 +1,8 @@
 import json
 from typing import List
 
-from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.http import require_GET, require_POST
-from psycopg2._psycopg import IntegrityError
 
 from AOGSbackend.albion.albion_api import AlbionApi
 from AOGSbackend.decorators.authenticated_decorator import authenticated
