@@ -18,7 +18,7 @@ export default function PrivateRoute(props: PrivateRouteProps) {
     return (
         <Route
             {...route}
-            render={(props) => (authenticated ? <Route {...props} component={component} /> : <Connect />)}
+            render={(props) => (authenticated ? <Route {...props} component={component} /> : authenticated == undefined ? <></> : <Connect />)}
         />
     );
 }
