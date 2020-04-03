@@ -8,11 +8,12 @@ from AOGSbackend.utils.url_tools import url_join
 
 
 class AlbionApi:
-    BASE_URL: str = "https://albiononline.com/api/gameinfo/"
+    GLOBAL_BASE_URL: str = "https://albiononline.com/api/gameinfo/"
+    PLAYERS_BASE_URL: str = "https://gameinfo.albiononline.com/api/gameinfo/"
 
     @staticmethod
-    def get_player_by_name(username: str) -> Optional[AlbionApiMinimalPlayer]:
-        response: Response = requests.get(url_join(AlbionApi.BASE_URL, 'search'), params={'q': username})
+    def search_player_by_name(username: str) -> Optional[AlbionApiMinimalPlayer]:
+        response: Response = requests.get(url_join(AlbionApi.GLOBAL_BASE_URL, 'search'), params={'q': username})
         if not response.ok:
             return None
         validation: Tuple[AlbionApiSearchElement, bool] = AlbionApiSearchElement(response.json()).validate_and_build()
