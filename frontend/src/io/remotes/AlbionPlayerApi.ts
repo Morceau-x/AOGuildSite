@@ -53,6 +53,9 @@ export default class AlbionPlayerApi extends AxiosApi {
     fetchAlbionPlayerData = (id: string): Promise<any> => {
         return fetch('https://gameinfo.albiononline.com/api/gameinfo/players/' + id, {
             mode: 'no-cors',
+            headers: {
+                'Content-Type': 'text/plain',
+            },
         });
     };
 }
