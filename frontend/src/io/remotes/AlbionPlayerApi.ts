@@ -1,6 +1,5 @@
 import { AlbionPlayerModel } from '../models/AlbionPlayerModel';
 import { RemoteAddAlbionPlayersType, RemoteRemoveAlbionPlayersType } from '../../store/userdata/UserDataTypes';
-import axios from 'axios';
 import AxiosApi from './AxiosApi';
 
 export default class AlbionPlayerApi extends AxiosApi {
@@ -30,7 +29,10 @@ export default class AlbionPlayerApi extends AxiosApi {
         const result: AlbionPlayerModel[] = [];
         for (let item of data) {
             try {
-                let { playerData } = await this.fetchAlbionPlayerData(item.player_id);
+                let response: Response = await this.fetchAlbionPlayerData(item.player_id);
+                console.log(response);
+                let playerData = await response.json();
+                console.log(playerData);
                 if (playerData)
                     result.push({
                         id: playerData.Id,
