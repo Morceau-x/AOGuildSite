@@ -30,9 +30,9 @@ def add_players(request: HttpRequest) -> HttpResponse:
     if data is None:
         return error_response("Unprocessable Entity", "The player could not be added", 422)
 
-    player = AlbionPlayer(player_id=data.id, name=data.name, user=request.user.user_id)
+    player = AlbionPlayer(player_id=data.id, name=data.name, user=request.user)
     player.save()
-    query_set: QuerySet = AlbionPlayer.objects.filter(user=request.user.user_id)
+    query_set: QuerySet = AlbionPlayer.objects.filter(user=request.user)
     players: List[AlbionPlayer] = list(query_set)
     return JsonResponse(players, safe=False)
 
@@ -46,8 +46,8 @@ def remove_players(request: HttpRequest) -> HttpResponse:
     data = AlbionApi.get_player_by_name(name)
     if data is None:
         return error_response("Unprocessable Entity", "The player could not be added", 422)
-    player = AlbionPlayer.objects.get(player_id=data.id, user=request.user.user_id)
+    player = AlbionPlayer.objects.get(player_id=data.id, user=request.user)
     player.delete()
-    query_set: QuerySet = AlbionPlayer.objects.filter(user=request.user.user_id)
+    query_set: QuerySet = AlbionPlayer.objects.filter(user=request.user)
     players: List[AlbionPlayer] = list(query_set)
     return JsonResponse(players, safe=False)
