@@ -55,8 +55,7 @@ export default class AlbionPlayerApi extends AxiosApi {
         return axios.get('https://gameinfo.albiononline.com/api/gameinfo/players/' + id, {
             withCredentials: false,
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
     };
