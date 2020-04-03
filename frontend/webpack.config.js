@@ -95,9 +95,6 @@ module.exports = (env, argv) => {
         ],
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.less'],
-            alias: {
-                '../../theme.config$': path.join(__dirname, 'semantic-ui/theme.config'),
-            },
         },
         output: {
             filename: 'bundle.js',
