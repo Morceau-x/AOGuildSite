@@ -1,6 +1,7 @@
 import { AlbionPlayerModel } from '../models/AlbionPlayerModel';
 import { RemoteAddAlbionPlayersType, RemoteRemoveAlbionPlayersType } from '../../store/userdata/UserDataTypes';
 import AxiosApi from './AxiosApi';
+import axios, { AxiosResponse } from 'axios';
 
 export default class AlbionPlayerApi extends AxiosApi {
     constructor() {
@@ -29,9 +30,9 @@ export default class AlbionPlayerApi extends AxiosApi {
         const result: AlbionPlayerModel[] = [];
         for (let item of data) {
             try {
-                let response: Response = await this.fetchAlbionPlayerData(item.player_id);
+                let response: AxiosResponse = await this.fetchAlbionPlayerData(item.player_id);
                 console.log(response);
-                let playerData = await response.json();
+                let playerData = await response.data;
                 console.log(playerData);
                 if (playerData)
                     result.push({
@@ -51,10 +52,11 @@ export default class AlbionPlayerApi extends AxiosApi {
     };
 
     fetchAlbionPlayerData = (id: string): Promise<any> => {
-        return fetch('https://gameinfo.albiononline.com/api/gameinfo/players/' + id, {
-            mode: 'no-cors',
+        return axios.get('https://gameinfo.albiononline.com/api/gameinfo/players/' + id, {
+            withCredentials: false,
             headers: {
-                'Content-Type': 'text/plain',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
         });
     };
