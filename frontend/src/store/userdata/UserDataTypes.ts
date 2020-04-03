@@ -26,12 +26,12 @@ export interface RemoteFetchAlbionPlayersType {
 
 export interface RemoteAddAlbionPlayersType {
     type: typeof REMOTE_ADD_ALBION_PLAYER;
-    player_id: string;
+    player_name: string;
 }
 
 export interface RemoteRemoveAlbionPlayersType {
     type: typeof REMOTE_REMOVE_ALBION_PLAYER;
-    player_id: string;
+    player_name: string;
 }
 
 export type UserDataTypes = ClearDataActionType | SetAlbionPlayersType;

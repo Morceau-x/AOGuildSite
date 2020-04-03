@@ -17,12 +17,12 @@ export default class AlbionPlayerApi extends AxiosApi {
     };
 
     addAlbionPlayer = async (postData: RemoteAddAlbionPlayersType): Promise<AlbionPlayerModel[]> => {
-        let { data } = await this.network.post('add/', { player_id: postData.player_id });
+        let { data } = await this.network.post('add/', { player_name: postData.player_name });
         return this.fetchPlayersData(data);
     };
 
     removeAlbionPlayer = async (postData: RemoteRemoveAlbionPlayersType): Promise<AlbionPlayerModel[]> => {
-        let { data } = await this.network.post('remove/', { player_id: postData.player_id });
+        let { data } = await this.network.post('remove/', { player_name: postData.player_name });
         return this.fetchPlayersData(data);
     };
 

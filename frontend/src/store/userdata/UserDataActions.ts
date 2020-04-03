@@ -31,16 +31,16 @@ export function remoteFetchAlbionPlayerAction(): RemoteFetchAlbionPlayersType {
     };
 }
 
-export function remoteAddAlbionPlayerAction(player_id: string): RemoteAddAlbionPlayersType {
+export function remoteAddAlbionPlayerAction(player_name: string): RemoteAddAlbionPlayersType {
     return {
         type: REMOTE_ADD_ALBION_PLAYER,
-        player_id: player_id,
+        player_name: player_name,
     };
 }
 
-export function remoteRemoveAlbionPlayerAction(player_id: string): RemoteRemoveAlbionPlayersType {
+export function remoteRemoveAlbionPlayerAction(player_name: string): RemoteRemoveAlbionPlayersType {
     return {
         type: REMOTE_REMOVE_ALBION_PLAYER,
-        player_id: player_id,
+        player_name: player_name,
     };
 }
