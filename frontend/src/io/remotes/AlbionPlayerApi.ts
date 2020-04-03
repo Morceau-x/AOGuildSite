@@ -1,7 +1,6 @@
 import { AlbionPlayerModel } from '../models/AlbionPlayerModel';
 import { RemoteAddAlbionPlayersType, RemoteRemoveAlbionPlayersType } from '../../store/userdata/UserDataTypes';
 import AxiosApi from './AxiosApi';
-import axios, { AxiosResponse } from 'axios';
 
 export default class AlbionPlayerApi extends AxiosApi {
     constructor() {
@@ -13,50 +12,16 @@ export default class AlbionPlayerApi extends AxiosApi {
 
     fetchAlbionPlayers = async (): Promise<AlbionPlayerModel[]> => {
         let { data } = await this.network.get('get/');
-        return this.fetchPlayersData(data);
+        return data;
     };
 
     addAlbionPlayer = async (postData: RemoteAddAlbionPlayersType): Promise<AlbionPlayerModel[]> => {
         let { data } = await this.network.post('add/', { player_name: postData.player_name });
-        return this.fetchPlayersData(data);
+        return data;
     };
 
     removeAlbionPlayer = async (postData: RemoteRemoveAlbionPlayersType): Promise<AlbionPlayerModel[]> => {
         let { data } = await this.network.post('remove/', { player_name: postData.player_name });
-        return this.fetchPlayersData(data);
-    };
-
-    fetchPlayersData = async (data: { player_id: string; [key: string]: any }[]): Promise<AlbionPlayerModel[]> => {
-        const result: AlbionPlayerModel[] = [];
-        for (let item of data) {
-            try {
-                let response: AxiosResponse = await this.fetchAlbionPlayerData(item.player_id);
-                console.log(response);
-                let playerData = await response.data;
-                console.log(playerData);
-                if (playerData)
-                    result.push({
-                        id: playerData.Id,
-                        name: playerData.Name,
-                        guild: playerData.GuildName,
-                        killFame: playerData.KillFame,
-                        deathFame: playerData.DeathFame,
-                        fameRatio: playerData.FameRatio,
-                        pveFame: playerData.LifetimeStatistics.PvE.Total,
-                        gatheringFame: playerData.LifetimeStatistics.Gathering.All.Total,
-                        craftingFame: playerData.LifetimeStatistics.Crafting.Total,
-                    });
-            } catch (_) {}
-        }
-        return result;
-    };
-
-    fetchAlbionPlayerData = (id: string): Promise<any> => {
-        return axios.get('https://gameinfo.albiononline.com/api/gameinfo/players/' + id, {
-            withCredentials: false,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        });
+        return data;
     };
 }
