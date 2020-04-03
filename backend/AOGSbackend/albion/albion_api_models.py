@@ -182,7 +182,7 @@ class AlbionApiPlayer(AlbionApiModel):
         self.death_fame = self.data.get("DeathFame")
         self.kill_fame = self.data.get("KillFame")
         self.fame_ratio = self.data.get("FameRatio")
-        self.pve_fame = self.data.get("LifetimeStatistics").get("Total")
-        self.gathering_fame = self.data.get("LifetimeStatistics").get("All").get("Total")
-        self.crafting_fame = self.data.get("LifetimeStatistics").get("Total")
+        self.pve_fame = self.data.get("LifetimeStatistics").get("PvE").get("Total")
+        self.gathering_fame = self.data.get("LifetimeStatistics").get("Gathering").get("All").get("Total")
+        self.crafting_fame = self.data.get("LifetimeStatistics").get("Crafting").get("Total")
         return self
