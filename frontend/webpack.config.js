@@ -1,11 +1,7 @@
-// Mainly by following webpack doc:
-// https://webpack.js.org/guides/typescript/
-
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const outDir = path.join(__dirname, 'dist');
-// Config use for development. used by webpack-dev-server
+
 const devConfig = {
     mode: 'development',
     devtool: 'inline-source-map',
@@ -58,14 +54,6 @@ module.exports = (env, argv) => {
                     exclude: /node_modules/,
                 },
                 {
-                    test: /\.(less)$/,
-                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
-                },
-                {
-                    test: /\.(sa|sc|c)ss$/,
-                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-                },
-                {
                     test: /\.jpe?g$|\.gif$|\.ico$|\.png$|\.svg$|\.html$/,
                     use: 'file-loader?name=[name].[ext]',
                 },
@@ -86,12 +74,12 @@ module.exports = (env, argv) => {
             ],
         },
         plugins: [
-            // this handles the bundled .css output file
-            new MiniCssExtractPlugin({
-                filename: '[name].css',
-                //filename: "./css/[name].css"
-            }),
-            new CopyWebpackPlugin([{ from: path.join(__dirname, 'public/index.html'), to: outDir }]),
+            new CopyWebpackPlugin([
+                {
+                    from: path.join(__dirname, 'public/index.html'),
+                    to: outDir,
+                },
+            ]),
         ],
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.less'],
@@ -101,18 +89,8 @@ module.exports = (env, argv) => {
             path: outDir,
             publicPath: '/',
         },
-        serve: {
-            add: (app) => {
-                app.use(convert(history()));
-            },
-            content: path.join(__dirname, './src/App.tsx'),
-            dev: {
-                publicPath: path.join(__dirname, 'dist'),
-            },
-            open: true,
-        },
-        ...(argv.mode === 'production' ? prodConfig : devConfig),
+        ...(env.NODE_ENV === 'production' ? prodConfig : devConfig),
     };
-    console.log('webpack config loaded: ', config);
+    console.log('webpack config loaded in mode: ', env.NODE_ENV);
     return config;
 };

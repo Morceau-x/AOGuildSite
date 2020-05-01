@@ -1,10 +1,11 @@
 import AxiosApi from './AxiosApi';
+import { API_BASE_URL } from '../../Globals';
 
 export default class AuthApi extends AxiosApi {
     constructor() {
         super();
         this.network = this.withCsrf({
-            baseURL: 'https://api.tsf-albion.fr/auth/',
+            baseURL: `${API_BASE_URL}auth/`,
         });
     }
 

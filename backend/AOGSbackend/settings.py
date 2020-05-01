@@ -44,19 +44,29 @@ if SECRET_KEY is None:
     raise Exception("Could not start, missing Django secrat key environment variables.")
 
 # Debug
-DEBUG = os.getenv('DEBUG') == 'True'
+if os.getenv('MODE') == 'development':
+    DEBUG = True
+else:
+    DEBUG = os.getenv('DEBUG') == 'True'
 
 # Sessions
-SESSION_COOKIE_SECURE = True
+
 SESSION_COOKIE_SAMESITE = None
-SESSION_COOKIE_AGE = 86400
-SESSION_COOKIE_DOMAIN = 'api.tsf-albion.fr'
-SESSION_COOKIE_NAME = 'aogs_session'
 SESSION_COOKIE_HTTPONLY = True
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+if os.getenv('MODE') == 'development':
+    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_AGE = 600
+    SESSION_COOKIE_NAME = 'aogs_session_dev'
+else:
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_AGE = 86400
+    SESSION_COOKIE_DOMAIN = 'api.tsf-albion.fr'
+    SESSION_COOKIE_NAME = 'aogs_session'
 
 # Security
-ALLOWED_HOSTS = ['api.tsf-albion.fr']
+if os.getenv('MODE') != 'development':
+    ALLOWED_HOSTS = ['api.tsf-albion.fr']
 
 # CSRF Unused
 CSRF_USE_SESSIONS = False
@@ -65,10 +75,13 @@ CSRF_COOKIE_DOMAIN = 'www.tsf-albion.fr'
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_COOKIE_SECURE = True
 
+if os.getenv('MODE') == 'development':
+    CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = [
-    "https://www.tsf-albion.fr"
-]
+else:
+    CORS_ORIGIN_WHITELIST = [
+        "https://www.tsf-albion.fr"
+    ]
 CORS_ALLOW_CREDENTIALS = True
 
 # Auth / Accounts

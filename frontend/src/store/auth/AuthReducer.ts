@@ -36,7 +36,7 @@ export function authReducer(state: AuthState = initialState, action: AuthActionT
                 id: null,
                 username: null,
                 discriminator: null,
-                authenticated: process.env.NODE_ENV == 'development',
+                authenticated: false,
             };
         case SET_USER_PERMISSIONS:
             action = action as SetPermissionsActionType;

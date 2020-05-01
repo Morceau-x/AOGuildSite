@@ -67,7 +67,9 @@ DB_USER='' # How you want the database user to be named
 DB_PASSWORD='' # The database password (don't hesitate to use a password generator and create a very long one)
 DB_HOST='' # The database server IP
 DB_PORT='' # The database server port
-DEBUG='' # Debug mode ('True' or 'False')
+DEBUG='' # Debug mode for django 'True', 'False' or '' ('' will set debug to False in production mode else True)
+MODE='' # Starting mode for bakend 'production' or 'development'
+DEV_USER= # Only set for development mode. The id (user_id) of the user to connect with in development mode.
 # The files below are used in the nginx config file to setup HTTPS
 BACKEND_CERT='' # HTTP, HTTPS or FTP link to the backend cert (for HTTPS)  
 BACKEND_KEY='' # HTTP, HTTPS or FTP link to the backend key (for HTTPS)

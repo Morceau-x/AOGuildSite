@@ -8,31 +8,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Routes from './Routes';
 import { CssBaseline } from '@material-ui/core';
 import { fetchUserAction } from './store/auth/AuthActions';
+import { appTheme } from './Theme';
 
-const theme = createMuiTheme({
-    palette: {
-        type: 'light',
-        text: {
-            primary: '#000',
-            secondary: '#2e4572',
-        },
-        primary: {
-            light: '#2e4572',
-            main: '#1E2C49',
-            dark: '#1E2C49',
-            contrastText: '#fff',
-        },
-        secondary: {
-            light: '#FDF9E5',
-            main: '#EDB33D',
-            dark: '#EDB33D',
-            contrastText: '#000',
-        },
-    },
-    typography: {
-        fontFamily: ['Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
-    },
-});
+const theme = createMuiTheme(appTheme);
 
 function App() {
     const dispatch = useDispatch();

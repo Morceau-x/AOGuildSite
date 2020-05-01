@@ -1,12 +1,13 @@
 import { AlbionPlayerModel } from '../models/AlbionPlayerModel';
 import { RemoteAddAlbionPlayersType, RemoteRemoveAlbionPlayersType } from '../../store/userdata/UserDataTypes';
 import AxiosApi from './AxiosApi';
+import { API_BASE_URL } from '../../Globals';
 
 export default class AlbionPlayerApi extends AxiosApi {
     constructor() {
         super();
         this.network = this.withCsrf({
-            baseURL: 'https://api.tsf-albion.fr/albion/players/',
+            baseURL: `${API_BASE_URL}albion/players/`,
         });
     }
 

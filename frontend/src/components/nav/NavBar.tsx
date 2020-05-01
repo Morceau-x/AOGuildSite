@@ -29,9 +29,11 @@ const useStyles = makeStyles({
 
 export default function NavBar() {
     const classes = useStyles();
-    const { auth, nav }: { auth: AuthState; nav: NavBarState } = useSelector((state: { auth: AuthState; nav: NavBarState; [key: string]: any }) => {
-        return { auth: state.auth, nav: state.nav };
-    });
+    const { auth, nav }: { auth: AuthState; nav: NavBarState } = useSelector(
+        (state: { auth: AuthState; nav: NavBarState; [key: string]: any }) => {
+            return { auth: state.auth, nav: state.nav };
+        }
+    );
     const authenticated = auth.authenticated;
 
     return (
@@ -41,16 +43,29 @@ export default function NavBar() {
                     <LogoButton />
 
                     <div className={classes.left}>
-                        <NavItem text="TODO" to="/todo" authentication={{ required: true, current: authenticated }} />
+                        <NavItem
+                            text="TODO"
+                            itemData={{ to: '/todo' }}
+                            auth={{ required: true, current: authenticated }}
+                        />
+                        <NavItem
+                            text="Evénements"
+                            itemData={{ to: '/events' }}
+                            auth={{ required: true, current: authenticated }}
+                        />
                     </div>
 
                     <div className={classes.right}>
                         <NavItem
                             text={auth.username + '#' + auth.discriminator}
-                            iconAfter={<MoreVert />}
-                            menu={<AuthItemList />}
-                            routes={['/profile']}
-                            authentication={{ required: true, current: authenticated }}
+                            buttonProps={{
+                                endIcon: <MoreVert fontSize="large" />,
+                            }}
+                            itemData={{
+                                menu: <AuthItemList />,
+                                routes: ['/profile'],
+                            }}
+                            auth={{ required: true, current: authenticated }}
                         />
                         <AuthButton required={false} current={authenticated} />
                     </div>
