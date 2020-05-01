@@ -1,5 +1,5 @@
-import { AlbionPlayerModel } from '../models/AlbionPlayerModel';
-import { RemoteAddAlbionPlayersType, RemoteRemoveAlbionPlayersType } from '../../store/userdata/UserDataTypes';
+import { AlbionPlayerModel } from '../../models/AlbionPlayerModel';
+import { AddAlbionPlayerAction, RemoveAlbionPlayerAction } from '../../store/albion/AlbionTypes';
 import AxiosApi from './AxiosApi';
 import { API_BASE_URL } from '../../Globals';
 
@@ -16,12 +16,12 @@ export default class AlbionPlayerApi extends AxiosApi {
         return data;
     };
 
-    addAlbionPlayer = async (postData: RemoteAddAlbionPlayersType): Promise<AlbionPlayerModel[]> => {
+    addAlbionPlayer = async (postData: AddAlbionPlayerAction): Promise<AlbionPlayerModel[]> => {
         let { data } = await this.network.post('add/', { player_name: postData.player_name });
         return data;
     };
 
-    removeAlbionPlayer = async (postData: RemoteRemoveAlbionPlayersType): Promise<AlbionPlayerModel[]> => {
+    removeAlbionPlayer = async (postData: RemoveAlbionPlayerAction): Promise<AlbionPlayerModel[]> => {
         let { data } = await this.network.post('remove/', { player_name: postData.player_name });
         return data;
     };

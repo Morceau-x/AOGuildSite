@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { FunctionComponent, useState } from 'react';
+import { Route, RouteProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Connect from '../errors/Connect';
 
 type PrivateRouteProps = {
@@ -13,12 +13,20 @@ export default function PrivateRoute(props: PrivateRouteProps) {
     const [route, _] = useState(routeProps);
 
     // @ts-ignore
-    const authenticated = useSelector((state) => state.auth.authenticated);
+    const authenticated = useSelector((state: State) => state.auth.authenticated);
 
     return (
         <Route
             {...route}
-            render={(props) => (authenticated ? <Route {...props} component={component} /> : authenticated == undefined ? <></> : <Connect />)}
+            render={(props) =>
+                authenticated ? (
+                    <Route {...props} component={component} />
+                ) : authenticated == undefined ? (
+                    <></>
+                ) : (
+                    <Connect />
+                )
+            }
         />
     );
 }

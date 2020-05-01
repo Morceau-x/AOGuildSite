@@ -3,13 +3,14 @@ import { AppBar, Paper, Popper, Toolbar } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import AuthButton from './buttons/AuthButton';
 
-import NavItem from './NavItem';
+import NavItem, { MenuNavItem, SimpleNavItem } from './NavItem';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { AuthState } from '../../store/auth/AuthTypes';
 import { NavBarState } from '../../store/navbar/NavBarTypes';
 import { MoreVert } from '@material-ui/icons';
 import AuthItemList from './menus/AuthItemList';
 import LogoButton from './buttons/LogoButton';
+import { State } from '../../store/Reducer';
 
 const useStyles = makeStyles({
     toolbar: {
@@ -29,12 +30,10 @@ const useStyles = makeStyles({
 
 export default function NavBar() {
     const classes = useStyles();
-    const { auth, nav }: { auth: AuthState; nav: NavBarState } = useSelector(
-        (state: { auth: AuthState; nav: NavBarState; [key: string]: any }) => {
-            return { auth: state.auth, nav: state.nav };
-        }
-    );
-    const authenticated = auth.authenticated;
+    const { auth, nav }: { auth: AuthState; nav: NavBarState } = useSelector((state: State) => {
+        return { auth: state.auth, nav: state.nav };
+    });
+    const authOptions = { required: true, current: auth.authenticated };
 
     return (
         <>
@@ -43,16 +42,8 @@ export default function NavBar() {
                     <LogoButton />
 
                     <div className={classes.left}>
-                        <NavItem
-                            text="TODO"
-                            itemData={{ to: '/todo' }}
-                            auth={{ required: true, current: authenticated }}
-                        />
-                        <NavItem
-                            text="Evénements"
-                            itemData={{ to: '/events' }}
-                            auth={{ required: true, current: authenticated }}
-                        />
+                        <NavItem text="TODO" itemData={new SimpleNavItem('/todo')} auth={authOptions} />
+                        <NavItem text="Evénements" itemData={new SimpleNavItem('/events')} auth={authOptions} />
                     </div>
 
                     <div className={classes.right}>
@@ -61,13 +52,10 @@ export default function NavBar() {
                             buttonProps={{
                                 endIcon: <MoreVert fontSize="large" />,
                             }}
-                            itemData={{
-                                menu: <AuthItemList />,
-                                routes: ['/profile'],
-                            }}
-                            auth={{ required: true, current: authenticated }}
+                            itemData={new MenuNavItem(<AuthItemList />, ['/profile'])}
+                            auth={authOptions}
                         />
-                        <AuthButton required={false} current={authenticated} />
+                        <AuthButton required={false} current={auth.authenticated} />
                     </div>
                 </Toolbar>
                 <Popper anchorEl={nav.anchorEl ? nav.anchorEl.current : null} open={nav.open} disablePortal>

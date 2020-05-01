@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider, useDispatch } from 'react-redux';
 import Store from './store/Store';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Routes from './Routes';
+import Routes from './components/Routes';
 import { CssBaseline } from '@material-ui/core';
 import { fetchUserAction } from './store/auth/AuthActions';
 import { appTheme } from './Theme';

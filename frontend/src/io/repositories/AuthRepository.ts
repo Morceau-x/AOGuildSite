@@ -1,4 +1,4 @@
-import { RemoteAddAlbionPlayersType, RemoteRemoveAlbionPlayersType } from '../../store/userdata/UserDataTypes';
+import { AddAlbionPlayerAction, RemoveAlbionPlayerAction } from '../../store/albion/AlbionTypes';
 import AuthApi from '../remotes/AuthApi';
 
 export default class AuthRepository {

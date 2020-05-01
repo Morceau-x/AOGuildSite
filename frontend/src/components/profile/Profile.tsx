@@ -4,10 +4,11 @@ import { AuthState } from '../../store/auth/AuthTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserPermissionsAction } from '../../store/auth/AuthActions';
 import AlbionPlayers from './AlbionPlayers';
+import { State } from '../../store/Reducer';
 
 export default function Profile() {
     const dispatch = useDispatch();
-    const auth: AuthState = useSelector((state: { auth: AuthState; [key: string]: any }) => state.auth);
+    const auth: AuthState = useSelector((state: State) => state.auth);
 
     useEffect(() => {
         dispatch(getUserPermissionsAction());

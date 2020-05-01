@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import { userWatchers } from './auth/AuthSagas';
-import { userDataWatchers } from './userdata/UserDataSagas';
+import { albionWatchers } from './albion/AlbionSagas';
 
 export const rootSaga = function* root() {
-    yield all([...userWatchers, ...userDataWatchers]);
+    yield all([...userWatchers, albionWatchers]);
 };

@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { FETCH_USER, GET_USER_PERMISSIONS, LOGOUT_USER } from './AuthTypes';
 import { logInAction, logOutAction, setUserPermissionsAction } from './AuthActions';
-import { clearUserDataAction } from '../userdata/UserDataActions';
 import AuthRepository from '../../io/repositories/AuthRepository';
+import { clearAlbionData } from '../albion/AlbionTypes';
 
 const authRepo = new AuthRepository();
 
@@ -12,7 +12,7 @@ export function* fetchUserSaga() {
         yield put(logInAction(data.id, data.username, data.discriminator));
     } catch (error) {
         yield put(logOutAction());
-        yield put(clearUserDataAction());
+        yield put(clearAlbionData());
     }
 }
 
@@ -24,7 +24,7 @@ export function* logOutUserSaga() {
     try {
         yield call(authRepo.logOutUser);
         yield put(logOutAction());
-        yield put(clearUserDataAction());
+        yield put(clearAlbionData());
     } catch (error) {}
 }
 

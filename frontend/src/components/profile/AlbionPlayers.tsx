@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { remoteAddAlbionPlayerAction, remoteFetchAlbionPlayerAction, remoteRemoveAlbionPlayerAction } from '../../store/userdata/UserDataActions';
 import MaterialTable from 'material-table';
-import { UserDataState } from '../../store/userdata/UserDataTypes';
 import { Button, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MaterialTableActionBuilder from '../common/MaterialTableActionBuilder';
 import { Add } from '@material-ui/icons';
+import { State } from '../../store/Reducer';
+import { addAlbionPlayer, fetchAlbionPlayers, remoteRemoveAlbionPlayerAction } from '../../store/albion/AlbionTypes';
 
 const never = () => false;
 
@@ -61,9 +61,9 @@ const useStyles = makeStyles({
 export default function PlayersManager() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const players = useSelector((state: { data: UserDataState; [key: string]: any }) => state.data.players);
+    const players = useSelector((state: State) => state.albion.players);
     useEffect(() => {
-        dispatch(remoteFetchAlbionPlayerAction());
+        dispatch(fetchAlbionPlayers());
     }, []);
 
     const action = new MaterialTableActionBuilder()
@@ -72,7 +72,13 @@ export default function PlayersManager() {
             return {
                 action: action,
                 button: (
-                    <Button variant="text" endIcon={<Add />} onClick={clickEvent} disabled={disabled} classes={{ label: classes.label }}>
+                    <Button
+                        variant="text"
+                        endIcon={<Add />}
+                        onClick={clickEvent}
+                        disabled={disabled}
+                        classes={{ label: classes.label }}
+                    >
                         <Typography>Ajouter un joueur</Typography>
                     </Button>
                 ),
@@ -96,7 +102,7 @@ export default function PlayersManager() {
             editable={{
                 isEditable: () => false,
                 onRowAdd: async (newData) => {
-                    dispatch(remoteAddAlbionPlayerAction(newData.name));
+                    dispatch(addAlbionPlayer(newData.name));
                 },
                 onRowDelete: async (oldData) => {
                     dispatch(remoteRemoveAlbionPlayerAction(oldData.name));

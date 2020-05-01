@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import todo from './components/todo';
-import MainPage from './components/main/MainPage';
-import Profile from './components/profile/Profile';
-import Error404 from './components/errors/Error404';
-import PrivateRoute from './components/common/PrivateRoute';
-import EventList from './components/events/EventList';
+import todo from './todo';
+import MainPage from './main/MainPage';
+import Profile from './profile/Profile';
+import Error404 from './errors/Error404';
+import PrivateRoute from './common/PrivateRoute';
+import EventList from './events/EventList';
 
 export default function Routes() {
     return (

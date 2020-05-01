@@ -1,5 +1,5 @@
 import AlbionPlayerApi from '../remotes/AlbionPlayerApi';
-import { RemoteAddAlbionPlayersType, RemoteRemoveAlbionPlayersType } from '../../store/userdata/UserDataTypes';
+import { AddAlbionPlayerAction, RemoveAlbionPlayerAction } from '../../store/albion/AlbionTypes';
 
 export default class AlbionPlayerRepository {
     remote: AlbionPlayerApi;
@@ -12,11 +12,11 @@ export default class AlbionPlayerRepository {
         return this.remote.fetchAlbionPlayers();
     };
 
-    addAlbionPlayer = (data: RemoteAddAlbionPlayersType): Promise<any> => {
+    addAlbionPlayer = (data: AddAlbionPlayerAction): Promise<any> => {
         return this.remote.addAlbionPlayer(data);
     };
 
-    removeAlbionPlayer = (data: RemoteRemoveAlbionPlayersType): Promise<any> => {
+    removeAlbionPlayer = (data: RemoveAlbionPlayerAction): Promise<any> => {
         return this.remote.removeAlbionPlayer(data);
     };
 }

@@ -5,18 +5,28 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { closeNavBarAction, toggleNavBarAction } from '../../store/navbar/NavBarActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavBarState } from '../../store/navbar/NavBarTypes';
+import { State } from '../../store/Reducer';
 
 //////////////////////////////////////////////////////////////
 /// Props
 //////////////////////////////////////////////////////////////
 
-export abstract class SimpleNavItem {
+export class SimpleNavItem {
     to: string;
+
+    constructor(to: string) {
+        this.to = to;
+    }
 }
 
-export abstract class MenuNavItem {
+export class MenuNavItem {
     menu: React.ReactNode;
     routes: string[];
+
+    constructor(menu: React.ReactNode, routes: string[]) {
+        this.menu = menu;
+        this.routes = routes;
+    }
 }
 
 export interface NavItemAuthStatus {
@@ -74,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) => {
 export default function NavItem(props: NavItemProps) {
     const dispatch = useDispatch();
     const ref = useRef();
-    const nav: NavBarState = useSelector((state: { nav: NavBarState; [key: string]: any }) => state.nav);
+    const nav: NavBarState = useSelector((state: State) => state.nav);
 
     const match = !props.itemData
         ? { isExact: false }
@@ -83,10 +93,7 @@ export default function NavItem(props: NavItemProps) {
         : useRouteMatch({ path: props.itemData.routes, exact: true });
     const classes = useStyles({ itemSelected: match ? match.isExact : false });
 
-    let routing = {};
-    useEffect(() => {
-        routing = props.itemData instanceof SimpleNavItem ? { component: RouterLink, to: props.itemData.to } : {};
-    }, [props.itemData]);
+    let routing = props.itemData instanceof SimpleNavItem ? { component: RouterLink, to: props.itemData.to } : {};
 
     const handleClick = () => {
         if (props.itemData instanceof SimpleNavItem) {
