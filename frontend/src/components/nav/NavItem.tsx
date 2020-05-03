@@ -112,7 +112,7 @@ export default function NavItem(props: NavItemProps) {
             {...routing}
             {...props.buttonProps}
         >
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h4" color="inherit" noWrap>
                 {props.text}
             </Typography>
         </Button>

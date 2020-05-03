@@ -50,7 +50,7 @@ const NavBarItemButton = React.forwardRef((props: NavMenuItemProps, _) => {
                 if (props.clickEvent) props.clickEvent(event);
             }}
         >
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h4" color="inherit" noWrap>
                 {props.text}
             </Typography>
         </Button>

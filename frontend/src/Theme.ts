@@ -22,9 +22,20 @@ export const appTheme: ThemeOptions = {
     },
     typography: {
         fontFamily: ['Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
-        h6: {
+        h4: {
             fontSize: '1.25rem',
-            textTransform: 'capitalize',
+            textTransform: 'none',
+            whiteSpace: 'pre',
+        },
+        h5: {
+            fontSize: '1.1rem',
+            textTransform: 'none',
+            whiteSpace: 'pre',
+        },
+        h6: {
+            fontSize: '0.9rem',
+            textTransform: 'none',
+            whiteSpace: 'pre',
         },
     },
 };

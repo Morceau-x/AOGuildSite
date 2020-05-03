@@ -1,11 +1,9 @@
-import { Button, Divider, MenuList } from '@material-ui/core';
-import { Dashboard, ExitToApp, Help, Person, Settings } from '@material-ui/icons';
-import React, { useRef } from 'react';
+import { Divider, MenuList } from '@material-ui/core';
+import { Dashboard, ExitToApp, Person, Settings } from '@material-ui/icons';
+import React from 'react';
 import NavMenuItem from '../NavMenuItem';
-import { useDispatch, useSelector } from 'react-redux';
-import { logOutUserAction } from '../../../store/auth/AuthActions';
-import { NavBarState } from '../../../store/navbar/NavBarTypes';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { useDispatch } from 'react-redux';
+import { logOutRemote } from '../../../store/auth/AuthTypes';
 
 export default function AuthItemList() {
     const dispatch = useDispatch();
@@ -19,9 +17,7 @@ export default function AuthItemList() {
             <NavMenuItem
                 text="Déconnexion"
                 iconBefore={<ExitToApp />}
-                clickEvent={(event: React.MouseEvent) => {
-                    dispatch(logOutUserAction());
-                }}
+                clickEvent={() => dispatch(logOutRemote())}
                 to="#"
             />
         </MenuList>

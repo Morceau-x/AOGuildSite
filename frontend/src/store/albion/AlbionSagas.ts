@@ -1,9 +1,9 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
     ADD_ALBION_PLAYER,
+    AddAlbionPlayerAction,
     FETCH_ALBION_PLAYERS,
     REMOVE_ALBION_PLAYER,
-    AddAlbionPlayerAction,
     RemoveAlbionPlayerAction,
     setAlbionPlayers,
 } from './AlbionTypes';
@@ -33,6 +33,7 @@ export function* addAlbionPlayerSaga(action: AddAlbionPlayerAction) {
 export function* removeAlbionPlayerSaga(action: RemoveAlbionPlayerAction) {
     try {
         const data = yield call(albionPlayerRepo.removeAlbionPlayer, action);
+        console.log(data);
         yield put(setAlbionPlayers(data));
     } catch (error) {
         yield put(setAlbionPlayers([]));

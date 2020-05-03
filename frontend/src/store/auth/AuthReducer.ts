@@ -1,12 +1,12 @@
 import {
-    AuthActionTypes,
+    AuthReducedActions,
     AuthState,
-    LOG_IN,
-    LOG_OUT,
-    LogInActionType,
-    LogOutActionType,
-    SET_USER_PERMISSIONS,
-    SetPermissionsActionType,
+    LOG_IN_LOCAL,
+    LOG_OUT_LOCAL,
+    LogInLocalAction,
+    LogOutLocalAction,
+    SET_PERMISSIONS,
+    SetPermissionsAction,
 } from './AuthTypes';
 
 const initialState: AuthState = {
@@ -18,10 +18,10 @@ const initialState: AuthState = {
     permissions: [],
 };
 
-export function authReducer(state: AuthState = initialState, action: AuthActionTypes): AuthState {
+export function authReducer(state: AuthState = initialState, action: AuthReducedActions): AuthState {
     switch (action.type) {
-        case LOG_IN:
-            action = action as LogInActionType;
+        case LOG_IN_LOCAL:
+            action = action as LogInLocalAction;
             return {
                 ...state,
                 id: action.id,
@@ -29,8 +29,8 @@ export function authReducer(state: AuthState = initialState, action: AuthActionT
                 discriminator: action.discriminator,
                 authenticated: true,
             };
-        case LOG_OUT:
-            action = action as LogOutActionType;
+        case LOG_OUT_LOCAL:
+            action = action as LogOutLocalAction;
             return {
                 ...state,
                 id: null,
@@ -38,8 +38,8 @@ export function authReducer(state: AuthState = initialState, action: AuthActionT
                 discriminator: null,
                 authenticated: false,
             };
-        case SET_USER_PERMISSIONS:
-            action = action as SetPermissionsActionType;
+        case SET_PERMISSIONS:
+            action = action as SetPermissionsAction;
             return {
                 ...state,
                 groups: action.groups,

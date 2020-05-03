@@ -10,7 +10,6 @@ AuthButton.defaultProps = {
 
 export default function AuthButton(props: { current: boolean | undefined; required: boolean | undefined }) {
     const url = `${API_BASE_URL}auth/authenticate/`;
-    console.log(process.env.NODE_ENV);
     return (
         <form action={url} method="post" style={{ display: 'flex' }}>
             <input type="text" defaultValue={location.href} name="redirect_uri" style={{ display: 'none' }} />
