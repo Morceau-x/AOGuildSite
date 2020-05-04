@@ -15,9 +15,9 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import EventModel, { EventStatus } from '../../models/EventModel';
+import EventModel, { EventStatus } from '../../../models/EventModel';
 import { blue, green, orange, red, yellow } from '@material-ui/core/colors';
-import EventCard from './card/EventCard';
+import EventCard from './EventCard';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {

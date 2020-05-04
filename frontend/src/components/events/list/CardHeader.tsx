@@ -5,32 +5,32 @@
  */
 
 import React from 'react';
-import { Theme, Tooltip, Typography } from '@material-ui/core';
-import { EventCardProps } from '../EventCard';
+import { Tooltip, Typography } from '@material-ui/core';
+import { EventCardProps } from './EventCard';
 import { useSelector } from 'react-redux';
-import { State } from '../../../../store/Reducer';
+import { State } from '../../../store/Reducer';
 import { red } from '@material-ui/core/colors';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import CardLine from '../CardLine';
-import { BuildTag, IPTag, SlotsTag, StartTag, TypeTag } from './HeaderTags';
-import { BlacklistIcon, GuildGivesIcon, OfficialIcon, PublicIcon, WhitelistIcon } from './HeaderIcons';
+import CardLine from './CardLine';
+import { BuildTag, IPTag, SlotsTag, StartTag, TypeTag } from './card/header/HeaderTags';
+import { BlacklistIcon, GuildGivesIcon, OfficialIcon, PublicIcon, WhitelistIcon } from './card/header/HeaderIcons';
+import PermissionsManager, { Permission } from '../../common/PermissionsManager';
 
-const useStyles = makeStyles((theme: Theme) => {
-    return {
-        name: {
-            padding: '5px',
-            marginRight: '3vw',
-        },
-    };
+const useStyles = makeStyles({
+    name: {
+        padding: '5px',
+        marginRight: '15px',
+    },
 });
 
 export default function CardHeader(props: EventCardProps & { options: Intl.DateTimeFormatOptions }) {
     const classes = useStyles();
-    const permissions = useSelector((state: State) => state.auth.permissions);
-    const canSeePrivate = true; //permissions.includes('can_access_private_events'); // TODO with real permission and clean in another file
+    const permissions = new PermissionsManager(useSelector((state: State) => state.auth.permissions));
+    const canSeePrivate = permissions.hasPermission(Permission.SEE_PRIVATE_EVENTS);
 
     return (
         <CardLine
+            containerProps={{ style: { marginTop: '15px' } }}
             leftProps={{ style: { flexWrap: 'wrap' } }}
             left={
                 <>

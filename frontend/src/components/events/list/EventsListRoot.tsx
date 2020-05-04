@@ -4,43 +4,47 @@
  * Project: frontend
  */
 
-import React, { useRef, useState } from 'react';
-import { Container, Theme } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Container } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import EventModel, { EventStatus } from '../../models/EventModel';
+import EventModel, { EventStatus } from '../../../models/EventModel';
 import EventsList from './EventsList';
-import { fakeEvents } from './TempFakeData';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../../store/Reducer';
+import { fetchEvents } from '../../../store/events/EventsTypes';
+import EventsListActions from './EventsListActions';
 
-const useStyles = makeStyles((theme: Theme) => {
-    return {
-        root: {
-            margin: '2%',
-        },
-    };
+const useStyles = makeStyles({
+    root: {
+        margin: '2%',
+    },
 });
 
-/**
- * EventList
- * React Functional Component
- *
- * @param props
- */
-export default function EventList() {
+export default function EventsListRoot() {
+    const dispatch = useDispatch();
     const classes = useStyles();
+    const events = useSelector((state: State): EventModel[] => state.events.events);
     const [expanded, setExpanded] = useState<EventStatus | undefined>(undefined);
 
+    useEffect(() => {
+        dispatch(fetchEvents());
+    }, []);
+
     const getEvents = (status: EventStatus): EventModel[] => {
-        const event = fakeEvents.filter((e) => e.getStatus() == status);
+        if (!events) return undefined;
+        const event = events.filter((e) => e.getStatus() == status);
         return event.sort((e, f) => e.startDateTime - f.startDateTime);
     };
 
     return (
         <Container maxWidth="md">
             <div className={classes.root}>
+                <EventsListActions />
                 {Object.keys(EventStatus).map((key) => {
                     // @ts-ignore
                     const status: EventStatus = EventStatus[key];
                     const event = getEvents(status);
+                    if (!event) return null;
                     return event.length < 1 ? null : (
                         <EventsList
                             status={status}

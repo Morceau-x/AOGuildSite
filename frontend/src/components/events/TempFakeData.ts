@@ -3,6 +3,7 @@ import EventModel, { EventFilterType } from '../../models/EventModel';
 export const fakeEvents: EventModel[] = [
     Object.assign(new EventModel(), {
         id: '1',
+        owner: '1',
         name: 'Test 1',
         canceled: false,
         public: true,
@@ -55,6 +56,7 @@ export const fakeEvents: EventModel[] = [
     }),
     Object.assign(new EventModel(), {
         id: '3',
+        owner: '1',
         name: 'Test 3',
         canceled: false,
         public: false,
@@ -69,6 +71,8 @@ export const fakeEvents: EventModel[] = [
 
         type: 'ZvZ',
         description: 'On va KCDQ!',
+
+        meetingPoint: 'Ile de guilde de Lymhurst',
 
         // TODO
         build: {
@@ -120,6 +124,7 @@ export const fakeEvents: EventModel[] = [
     }),
     Object.assign(new EventModel(), {
         id: '5',
+        owner: '1',
         name: 'Test 5',
         canceled: false,
         public: false,

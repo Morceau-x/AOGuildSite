@@ -8,7 +8,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Routes from './components/Routes';
 import { CssBaseline } from '@material-ui/core';
 import { appTheme } from './Theme';
-import { fetchUser } from './store/auth/AuthTypes';
+import { fetchPermissions, fetchUser } from './store/auth/AuthTypes';
 
 const theme = createMuiTheme(appTheme);
 
@@ -17,6 +17,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchUser());
+        dispatch(fetchPermissions());
     }, []);
 
     return (

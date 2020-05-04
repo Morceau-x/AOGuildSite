@@ -9,10 +9,6 @@ export default function Profile() {
     const dispatch = useDispatch();
     const auth: AuthState = useSelector((state: State) => state.auth);
 
-    useEffect(() => {
-        dispatch(fetchPermissions());
-    }, []);
-
     return (
         <div style={{ margin: '5%' }}>
             <Paper style={{ padding: '20px 10px 10px 30px', margin: '0 0 10px 0' }}>

@@ -8,8 +8,9 @@ import React from 'react';
 import { Divider, Paper, Theme, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import EventModel from '../../../models/EventModel';
-import CardHeader from './header/CardHeader';
+import CardHeader from './CardHeader';
 import CardAdditionalData from './CardAdditionalData';
+import CardActions from './CardActions';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
@@ -45,6 +46,8 @@ export default function EventCard(props: EventCardProps) {
             <Typography variant="h5">{'    ' + props.event.description}</Typography>
             <Divider className={classes.divider} />
             <CardAdditionalData event={props.event} options={options} />
+            <Divider className={classes.divider} />
+            <CardActions event={props.event} />
         </Paper>
     );
 }

@@ -18,7 +18,7 @@ import {
     VisibilityOff,
 } from '@material-ui/icons';
 import { green, lime, yellow } from '@material-ui/core/colors';
-import { EventBuildOptions, EventParticipantsOptions } from '../../../../models/EventModel';
+import { EventBuildOptions, EventParticipantsOptions } from '../../../../../models/EventModel';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {

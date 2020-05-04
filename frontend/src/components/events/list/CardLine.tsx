@@ -21,7 +21,6 @@ export default function CardLine(props: CardLineProps) {
     const containerProps: HTMLProps<HTMLDivElement> = {
         ...props.containerProps,
         style: {
-            paddingTop: '1vh',
             display: 'flex',
             alignItems: 'center',
             ...(props.wrap ? { flexWrap: 'wrap' } : {}),

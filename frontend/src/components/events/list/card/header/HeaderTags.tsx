@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { Paper, PaperProps, Tooltip, Typography, TypographyProps } from '@material-ui/core';
-import { EventBuildOptions, EventParticipantsOptions } from '../../../../models/EventModel';
+import { EventBuildOptions, EventParticipantsOptions } from '../../../../../models/EventModel';
 import { blue, green, lime, purple, yellow } from '@material-ui/core/colors';
 
 export interface HeaderTagProps {
@@ -21,7 +21,7 @@ export default function HeaderTag(props: HeaderTagProps) {
         elevation: 0,
         ...props.paperProps,
         style: {
-            borderRadius: '10px',
+            borderRadius: '3px',
             padding: '5px',
             marginRight: '10px',
             ...props.paperProps?.style,

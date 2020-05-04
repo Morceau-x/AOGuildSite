@@ -36,6 +36,7 @@ export interface EventParticipantsOptions {
 
 export default class EventModel {
     id: string;
+    owner: string;
     name: string;
     type: string;
     description: string;
@@ -56,6 +57,7 @@ export default class EventModel {
     build: EventBuildOptions;
     participants: EventParticipantsOptions;
 
+    meetingPoint: string;
     getStatus = (): EventStatus => {
         if (this.canceled) return EventStatus.CANCELED;
         const now = Date.now();

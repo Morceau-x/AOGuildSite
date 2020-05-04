@@ -42,8 +42,7 @@ export default function NavBar() {
                     <LogoButton />
 
                     <div className={classes.left}>
-                        <NavItem text="TODO" itemData={new SimpleNavItem('/todo')} auth={authOptions} />
-                        <NavItem text="Evénements" itemData={new SimpleNavItem('/events')} auth={authOptions} />
+                        <NavItem text="Evénements" itemData={new SimpleNavItem('/event/list')} auth={authOptions} />
                     </div>
 
                     <div className={classes.right}>

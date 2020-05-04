@@ -1,32 +1,18 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Connect from '../errors/Connect';
+import { State } from '../../store/Reducer';
 
-type PrivateRouteProps = {
-    component: FunctionComponent;
-} & RouteProps;
-
-export default function PrivateRoute(props: PrivateRouteProps) {
-    const { component, ...routeProps } = props;
-    const [route, _] = useState(routeProps);
-
-    // @ts-ignore
+export default function PrivateRoute(props: RouteProps) {
+    const { component, children, ...routeProps } = props;
     const authenticated = useSelector((state: State) => state.auth.authenticated);
 
     return (
         <Route
-            {...route}
-            render={(props) =>
-                authenticated ? (
-                    <Route {...props} component={component} />
-                ) : authenticated == undefined ? (
-                    <></>
-                ) : (
-                    <Connect />
-                )
-            }
+            {...routeProps}
+            component={authenticated ? component : authenticated == undefined ? null : Connect}
+            children={authenticated ? children : authenticated == undefined ? null : <Connect />}
         />
     );
 }
