@@ -10,6 +10,7 @@ import { useHistory, useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 import { State } from '../../../store/Reducer';
 import EventModel from '../../../models/EventModel';
+import EventDescription from './EventDescription';
 
 export default function EventDetailsRoot() {
     const params: { id?: string } = useParams();
@@ -25,15 +26,14 @@ export default function EventDetailsRoot() {
     }
 
     return (
-        <Container maxWidth="lg">
-            <Paper>
-                <Tabs value={tab} onChange={(e, tab) => setTab(tab)}>
-                    <Tab label="Description" />
-                    <Tab label="Participants" />
+        <Container maxWidth="lg" style={{ paddingTop: '2vh', paddingBottom: '2vh' }}>
+            <Paper style={{ paddingBottom: '2vh' }}>
+                <Tabs value={tab} onChange={(e, tab) => setTab(tab)} variant="fullWidth">
+                    <Tab label={<Typography variant="h4">Description</Typography>} />
+                    <Tab label={<Typography variant="h4">Participants</Typography>} />
                 </Tabs>
                 <TabPanel value={tab} index={0}>
-                    <Typography variant="h6">Test 1</Typography>
-                    <Typography variant="h6">Test 2</Typography>
+                    <EventDescription event={event} />
                 </TabPanel>
             </Paper>
         </Container>
@@ -41,7 +41,6 @@ export default function EventDetailsRoot() {
 }
 
 export function TabPanel(props: { index: number; value: number; children?: ReactNode }) {
-    console.log(props);
     if (props.index != props.value) return null;
     return <>{props.children}</>;
 }

@@ -1,3 +1,5 @@
+import { Obj } from '@popperjs/core';
+
 export enum EventStatus {
     OPEN,
     UPCOMING,

@@ -14,15 +14,8 @@ import { State } from '../../../store/Reducer';
 import { fetchEvents } from '../../../store/events/EventsTypes';
 import EventsListActions from './EventsListActions';
 
-const useStyles = makeStyles({
-    root: {
-        margin: '2%',
-    },
-});
-
 export default function EventsListRoot() {
     const dispatch = useDispatch();
-    const classes = useStyles();
     const events = useSelector((state: State): EventModel[] => state.events.events);
     const [expanded, setExpanded] = useState<EventStatus | undefined>(undefined);
 
@@ -37,26 +30,24 @@ export default function EventsListRoot() {
     };
 
     return (
-        <Container maxWidth="md">
-            <div className={classes.root}>
-                <EventsListActions />
-                {Object.keys(EventStatus).map((key) => {
-                    // @ts-ignore
-                    const status: EventStatus = EventStatus[key];
-                    const event = getEvents(status);
-                    if (!event) return null;
-                    return event.length < 1 ? null : (
-                        <EventsList
-                            status={status}
-                            events={event}
-                            key={status}
-                            expanded={expanded}
-                            setExpanded={setExpanded}
-                        />
-                    );
-                })}
-                {}
-            </div>
+        <Container maxWidth="lg" style={{ paddingTop: '2vh' }}>
+            <EventsListActions />
+            {Object.keys(EventStatus).map((key) => {
+                // @ts-ignore
+                const status: EventStatus = EventStatus[key];
+                const event = getEvents(status);
+                if (!event) return null;
+                return event.length < 1 ? null : (
+                    <EventsList
+                        status={status}
+                        events={event}
+                        key={status}
+                        expanded={expanded}
+                        setExpanded={setExpanded}
+                    />
+                );
+            })}
+            {}
         </Container>
     );
 }

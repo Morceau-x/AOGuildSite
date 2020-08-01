@@ -17,6 +17,7 @@ import { State } from '../../../store/Reducer';
 import ActionButton from '../actions/ActionButton';
 import CancelEventButton from '../actions/CancelEventButton';
 import LinkActionButton from '../actions/LinkActionButton';
+import EditEventButton from '../actions/EditEventButton';
 
 export default function CardActions(props: { event: EventModel }) {
     const status = props.event.getStatus();
@@ -24,7 +25,6 @@ export default function CardActions(props: { event: EventModel }) {
     const permissions = new PermissionsManager(auth.permissions);
     const canManageEvent =
         permissions.hasPermission(Permission.MANAGE_EVENT_PARTICIPANTS) || props.event.owner == auth.id;
-    const canEditEvent = permissions.hasPermission(Permission.EDIT_EVENTS) || props.event.owner == auth.id;
 
     const subscribe = (): JSX.Element => {
         if (status != EventStatus.OPEN) return null;
@@ -34,19 +34,6 @@ export default function CardActions(props: { event: EventModel }) {
                 text={"S'inscrire"}
                 color={green[500]}
                 icon={AssignmentTurnedIn}
-            />
-        );
-    };
-
-    const edit = (): JSX.Element => {
-        if (!canEditEvent) return null;
-        if (![EventStatus.UPCOMING, EventStatus.OPEN, EventStatus.CLOSED].includes(status)) return null;
-        return (
-            <LinkActionButton
-                to={'/event/' + props.event.id + '/edit'}
-                text={'Modifier'}
-                color={orange[500]}
-                icon={Create}
             />
         );
     };
@@ -71,7 +58,7 @@ export default function CardActions(props: { event: EventModel }) {
             left={
                 <>
                     {details()}
-                    {edit()}
+                    <EditEventButton event={props.event} />
                     <CancelEventButton event={props.event} />
                 </>
             }

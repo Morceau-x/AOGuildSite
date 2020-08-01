@@ -11,6 +11,7 @@ import EventModel from '../../../models/EventModel';
 import CardHeader from './CardHeader';
 import CardAdditionalData from './CardAdditionalData';
 import CardActions from './CardActions';
+import { DATE_TIME_FORMAT } from '../../../Globals';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
@@ -31,21 +32,13 @@ export interface EventCardProps {
 export default function EventCard(props: EventCardProps) {
     const classes = useStyles();
 
-    const options: Intl.DateTimeFormatOptions = {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-    };
-
     return (
         <Paper classes={{ root: classes.root }} elevation={1} square>
-            <CardHeader event={props.event} options={options} />
+            <CardHeader event={props.event} options={DATE_TIME_FORMAT} />
             <Divider className={classes.divider} />
             <Typography variant="h5">{'    ' + props.event.description}</Typography>
             <Divider className={classes.divider} />
-            <CardAdditionalData event={props.event} options={options} />
+            <CardAdditionalData event={props.event} options={DATE_TIME_FORMAT} />
             <Divider className={classes.divider} />
             <CardActions event={props.event} />
         </Paper>
